@@ -1,0 +1,41 @@
+Final Project Proposal
+Crystal Huynh
+
+Title: Text Adventure (Inspired by Zork I - unsure of what to name it yet)
+
+For my final project, I plan to create a text-based interactive adventure game inspired by Zork I: The Great Underground Empire.
+The program will allow the player to move through a series of connected rooms and interact with objects using simple typed commands.
+The world will consist of several rooms, each with a description and possible exits. This should replicate an escape room of sorts.
+The player will enter commands such as "go north", "turn knob", or "take key", and the program will update the game state accordingly.
+I plan to create the game world using data types such as Room, Direction, Item, and GameState, so that the structure of the world is clearly represented in the type system.
+Room connections and item locations will likely be stored using Map to keep lookups straightforward and organized.
+The main game logic will be written as pure functions that take a GameState and return an updated GameState based on the player’s command, while input and output will be handled separately in the main loop.
+I will use pattern matching to interpret commands and control how the game responds to different player actions.
+
+Goals:
+
+Easy:
+- Implement a playable world with 4–6 connected rooms/locations.
+- Allow basic movement commands such as “go north”, “go south”, etc.
+- Display room descriptions and available exits.
+- Maintain game state using a GameState data type and pure state transitions.
+
+Medium:
+- Add interactive objects that change the world state (e.g., unlocking a door with a key).
+- Implement simple win/lose conditions (for example, escaping the world or solving a puzzle).
+- Implement an inventory system where the player can “take” and “drop” items.
+
+Challenging:
+- Implement a command parser/script matching that supports synonyms for actions (ex. “grab” for “take”).
+- Add dynamic world behavior (ex. an event that changes after a certain number of moves).
+- Figure out how to save player history/progress 
+
+
+Additional Topics and Resources:
+
+Although most of this project builds directly on concepts covered in class (data types, pattern matching, Maps, and I/O), I may need to explore slightly more advanced parsing techniques if I implement more flexible player commands.
+For example, supporting synonyms or multi-word commands may require writing a small parser rather than simple string matching.
+I believe this is manageable using resources from the Haskell documentation and examples from class notes.
+If I attempt to implement save/load functionality, I may need to look into basic file I/O, possibly using readFile and writeFile, or simple serialization of data structures.
+I expect this to be something I can learn through documentation and small experiments.
+If I choose to structure the game loop using a more formal state abstraction (such as the State monad), I may need to review course material from the State chapters more carefully and potentially attend office hours to ensure I am applying it correctly (since that is what I am most worried about).
