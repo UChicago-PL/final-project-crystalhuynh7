@@ -1,0 +1,18 @@
+Final Project Progress
+Crystal Huynh
+
+Since submitting my proposal, I have started implementing the structure of the text adventure game in Haskell. 
+The core data types for the game world are now defined. These include types such as Direction, Room, Item, and GameState. 
+These types represent the state of the player and the world, including the player's current location and the items that exist in the game.
+
+I have also begun implementing the game world itself. Currently there are several connected rooms stored using Map,
+where each room contains a description and a set of exits that lead to other rooms. 
+I wrote functions that allow the player to move between rooms using commands such as "go north" or "go south". 
+These functions update the GameState and return the new state after a move.
+
+In addition, I have started implementing the main game loop. The program reads player input from the terminal, 
+parses the command, and then applies a pure function that updates the game state. 
+The room description is then printed to the screen so the player can see the result of their action.
+
+The next step is to expand the game world and add more interactions and possibly a puzzle to solve.
+It is very barebones as of now, but my foundation is there.
