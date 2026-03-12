@@ -1,0 +1,105 @@
+Final Project Report
+Crystal Huynh
+
+SUMMARY
+
+For my final project, I created The House of the Hidden Vault, a small text-based interactive adventure game inspired by Zork I: The Great Underground Empire.
+The game allows the player to explore a small environment made of connected rooms, interact with objects, and solve a simple puzzle to obtain a hidden treasure.
+The player moves through the world using typed commands such as north, take flashlight, or read note. 
+The goal of the game is to explore the house, gather the correct items, and eventually unlock a vault containing the treasure.
+The puzzle structure is intentionally simple but requires the player to interact with the world in the correct order. 
+The player begins in the foyer where they find a note hinting that the treasure is behind a locked door and that the key is located below.
+The player must explore the house, retrieve a flashlight in the study, use it to navigate the dark basement to find the key,
+and then return to the study to unlock the vault and obtain the treasure.
+
+This project focuses on structuring the game world using Haskell data types and implementing the game logic using pure functions.
+
+==================
+CODE 
+
+The project is implemented entirely in app/Main.hs. The code is organized into several conceptual sections.
+
+Part A – Data Types
+
+    The structure of the world and the game state is represented using several data types.
+    Direction represents the four movement directions.
+    Room represents a location in the game world. Each room contains a name, description, exits, and items.
+    GameState represents the current state of the game, including the player’s location, inventory, number of moves, and whether the game has ended.
+    Rooms and their connections are stored using a Map RoomId Room, which makes it easy to look up rooms and update their contents.
+
+Part B – Commands and Parsing
+
+    The player interacts with the game by typing commands. These commands are parsed into a Command data type which represents different possible player actions.
+        Examples of supported commands include:
+            movement (north, south, east, west)
+            item interaction (take, drop)
+            information commands (look, inventory, moves)
+            reading objects (read note)
+            quitting the game
+
+    The parseCommand function converts user input into one of these command values using pattern matching.
+
+Part C – World Definition
+
+    The game world consists of five rooms:
+        Foyer – starting room containing a note
+        Hallway – central connector between rooms
+        Study – contains the flashlight and a locked door to the vault
+        Basement – dark room containing the key
+        Vault – final room containing the treasure
+
+    The rooms and their connections are defined in the initialState value. The exits between rooms are represented using a Map Direction RoomId.
+
+Part D – Game Logic
+
+    The main game logic is implemented in the function step, which takes the current game state and a command and returns the updated game state along with messages to display to the player.
+    Most commands are implemented as pure state transformations. For example:
+        goDirection moves the player between rooms
+        takeItem moves an item from a room to the player’s inventory
+        dropItem moves an item from the inventory back into a room
+        readItem displays information about certain objects
+
+    The game also includes several conditional mechanics.
+        The basement is dark unless the player has the flashlight.
+        The key cannot be found in the basement without the flashlight.
+        The vault cannot be entered unless the player has the key.
+        When the player takes the treasure, the game ends and the total move count is displayed.
+
+Part E – Game Loop (IO)
+
+    The interactive portion of the game is handled by the loop function.
+    This function repeatedly reads input from the player, parses the input into a command, updates the game state using step, and prints the resulting messages.
+    This loop continues until the player types quit or the game ends.
+
+==================
+COURSE CONNECTION
+
+This project uses several functional programming ideas from the course:
+    Algebraic data types are used to represent commands, rooms, and directions.
+    Pure functions are used to update the game state.
+    Immutable state updates are used when modifying rooms or inventory.
+    Pattern matching is used to interpret commands and control game behavior.
+    Maps are used to represent structured world data.
+    Separating the pure game logic from the IO game loop made the design easier to reason about and modify.
+
+==================
+HOW TO PLAY
+
+From the project directory, run:
+    cabal run
+
+The player will start in the foyer. The objective is to explore the house and obtain the treasure.
+
+Useful commands try:
+    look
+    north / south / east / west
+    take <item>
+    drop <item>
+    read <item>
+    use <item>
+    inventory
+    moves
+    help
+    quit
+
+The player wins the game by retrieving the treasure from the vault.
